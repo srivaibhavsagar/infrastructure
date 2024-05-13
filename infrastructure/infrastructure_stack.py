@@ -1,5 +1,6 @@
 from aws_cdk import (
     # Duration,
+    aws_s3 as _s3,
     Stack,
     # aws_sqs as sqs,
 )
@@ -17,3 +18,6 @@ class InfrastructureStack(Stack):
         #     self, "InfrastructureQueue",
         #     visibility_timeout=Duration.seconds(300),
         # )
+    
+        _s3.Bucket(self,"myProdArtifactBucketId",
+                                )

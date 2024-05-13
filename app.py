@@ -4,10 +4,16 @@ import os
 import aws_cdk as cdk
 
 from infrastructure.infrastructure_stack import InfrastructureStack
+from infrastructure.serverless_stack.custom_apigw import CustomApiGatewayStack
 
 
 app = cdk.App()
-InfrastructureStack(app, "InfrastructureStack",
+environment = app.node.try_get_context("env")
+
+
+CustomApiGatewayStack(app,"apiGateway-lambda-stack",env=environment)
+# InfrastructureStack(app, "InfrastructureStack")
+# InfrastructureStack(app, "InfrastructureStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
@@ -23,6 +29,6 @@ InfrastructureStack(app, "InfrastructureStack",
     #env=cdk.Environment(account='123456789012', region='us-east-1'),
 
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
-    )
+    # )
 
 app.synth()
