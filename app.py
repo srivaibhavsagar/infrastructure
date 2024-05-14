@@ -17,17 +17,20 @@ if environment is None:
     print("No environment is provided. Hence default value dev is selected as environment")
     environment = "dev"
 
-if environment == "prod":
-    account_details = Environment(account="184261415726", region="us-east-1")
-else:
-    account_details = Environment(account="184261415726", region="us-east-1")
+regions = app.node.try_get_context("envs")[environment]["region"]
+account_number = app.node.try_get_context("envs")[environment]["account"]
+account_details = Environment(account=account_number, region=regions)
 
-
-# CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
+# Get Default VPC
 default = InfrastructureStack(app, "InfrastructureStack",environment=environment,env=account_details)
 
+# Create api gateway and lambda
+# CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
+
+# create vpc which should be used in rds
 # vpc_detail = CustomVpcStack(app,"new-vpc",env=account_details)
 
+# create rds
 # RdsDatabase3TierStack(app,"rds-stack",environment,vpc=vpc_detail.custom_vpc,env=account_details)
 
 

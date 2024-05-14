@@ -21,7 +21,7 @@
     "envs": {
       "dev": {
         "region": "us-east-1",
-        "account": "",
+        "account": "184261415726",
         "lambda_name":"lambda_apigateway",
         "vpc_configs": {
           "vpc_cidr": "10.83.0.0/20",
@@ -30,8 +30,8 @@
         }
       },
       "prod": {
-        "region": "",
-        "account": "",
+        "region": "eu-west-2",
+        "account": "184261415726",
         "lambda_name":"api_lambda",
         "vpc_configs": {
           "vpc_cidr": "10.83.0.0/20",
