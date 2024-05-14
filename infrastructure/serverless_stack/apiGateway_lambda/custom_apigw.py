@@ -6,7 +6,7 @@ from constructs import Construct
 
 class CustomApiGatewayStack(Stack):
 
-    def __init__(self, scope: Construct, id: str,env: str, ** kwargs) -> None:
+    def __init__(self, scope: Construct, id: str,environment: str, ** kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Create Serverless Event Processor using Lambda):
@@ -14,15 +14,16 @@ class CustomApiGatewayStack(Stack):
         try:
             # import os
             # print(os.system("ls -ltr"))
-            with open("infrastructure/serverless_stack/lambda_src/konstone_processor.py", mode="r") as f:
+            with open("infrastructure/serverless_stack/apiGateway_lambda/lambda_src/script.py", mode="r") as f:
                 fn_code = f.read()
         except OSError:
-            print("Unable to read Lambda Function Code")
+            raise Exception("Unable to read Lambda Function Code")
 
-        lambda_name = self.node.try_get_context('envs')[env]['lambda_name']
+        print(environment)
+        lambda_name = self.node.try_get_context('envs')[environment]['lambda_name']
         fn = _lambda.Function(self,
                                        "lambdaFunction",
-                                       function_name=f"{env}-{lambda_name}",
+                                       function_name=f"{environment}-{lambda_name}",
                                        runtime=_lambda.Runtime.PYTHON_3_12,
                                        handler="index.lambda_handler",
                                        code=_lambda.InlineCode(

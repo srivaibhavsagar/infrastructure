@@ -1,6 +1,7 @@
 {
   "app": "python3 app.py",
   "requireApproval": "never",
+  "environment": "dev",
   "watch": {
     "include": [
       "**"
@@ -21,12 +22,22 @@
       "dev": {
         "region": "us-east-1",
         "account": "",
-        "lambda_name":"lambda_apigateway"
+        "lambda_name":"lambda_apigateway",
+        "vpc_configs": {
+          "vpc_cidr": "10.83.0.0/20",
+          "cidr_mask": 24,
+          "set_reserve": false
+        }
       },
       "prod": {
         "region": "",
         "account": "",
-        "lambda_name":"api_lambda"
+        "lambda_name":"api_lambda",
+        "vpc_configs": {
+          "vpc_cidr": "10.83.0.0/20",
+          "cidr_mask": 24,
+          "set_reserve": false
+        }
       }
     }
   }
