@@ -25,7 +25,7 @@ account_details = Environment(account=account_number, region=regions)
 default = InfrastructureStack(app, "InfrastructureStack",environment=environment,env=account_details)
 
 # Create api gateway and lambda
-CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
+# CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
 
 # create vpc which should be used in rds
 # vpc_detail = CustomVpcStack(app,"new-vpc",env=account_details)
