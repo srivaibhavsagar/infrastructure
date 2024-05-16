@@ -22,7 +22,7 @@ account_number = app.node.try_get_context("envs")[environment]["account"]
 account_details = Environment(account=account_number, region=regions)
 
 # Get Default VPC
-default = StartingStack(app, "InfrastructureStack",environment=environment,env=account_details)
+default = StartingStack(app, "StartingStack",environment=environment,env=account_details)
 
 # Create api gateway and lambda
 # CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
