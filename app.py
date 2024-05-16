@@ -33,5 +33,4 @@ default = InfrastructureStack(app, "InfrastructureStack",environment=environment
 # create rds
 # RdsDatabase3TierStack(app,"rds-stack",environment,vpc=vpc_detail.custom_vpc,env=account_details)
 
-
 app.synth()
