@@ -60,4 +60,3 @@ Enjoy!
 
 
 cdk destroy -c env=dev
-
