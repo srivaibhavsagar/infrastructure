@@ -10,7 +10,7 @@ from aws_cdk import Stack,CfnOutput
 from constructs import Construct
 from infrastructure.serverless_stack.apiGateway_lambda.custom_apigw import CustomApiGatewayStack
 
-class InfrastructureStack(Stack):
+class StartingStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, environment,**kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)

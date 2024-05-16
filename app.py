@@ -4,7 +4,7 @@ import os
 import aws_cdk as cdk
 from aws_cdk import Environment
 
-from infrastructure.infrastructure_stack import InfrastructureStack
+from infrastructure.infrastructure_stack import StartingStack
 from infrastructure.serverless_stack.apiGateway_lambda.custom_apigw import CustomApiGatewayStack
 from infrastructure.database_stack.rds_3tier_stack import RdsDatabase3TierStack
 from infrastructure.database_stack.custom_vpc import CustomVpcStack
@@ -22,7 +22,7 @@ account_number = app.node.try_get_context("envs")[environment]["account"]
 account_details = Environment(account=account_number, region=regions)
 
 # Get Default VPC
-default = InfrastructureStack(app, "InfrastructureStack",environment=environment,env=account_details)
+default = StartingStack(app, "InfrastructureStack",environment=environment,env=account_details)
 
 # Create api gateway and lambda
 # CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
