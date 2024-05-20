@@ -8,6 +8,7 @@ from infrastructure.infrastructure_stack import StartingStack
 from infrastructure.serverless_stack.apiGateway_lambda.custom_apigw import CustomApiGatewayStack
 from infrastructure.database_stack.rds_3tier_stack import RdsDatabase3TierStack
 from infrastructure.database_stack.custom_vpc import CustomVpcStack
+from infrastructure.database_stack.fargate import ServerlessContainersArchitectureWithFargateStack
 
 
 app = cdk.App()
@@ -22,15 +23,17 @@ account_number = app.node.try_get_context("envs")[environment]["account"]
 account_details = Environment(account=account_number, region=regions)
 
 # Get Default VPC
-default = StartingStack(app, "StartingStack",environment=environment,env=account_details)
+# default = StartingStack(app, "StartingStack",environment=environment,env=account_details)
 
 # Create api gateway and lambda
 # CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
 
 # create vpc which should be used in rds
-# vpc_detail = CustomVpcStack(app,"new-vpc",env=account_details)
+vpc_detail = CustomVpcStack(app,"new-vpc",env=account_details)
 
+# create fardate container
+ServerlessContainersArchitectureWithFargateStack(app,"fargate-stack",vpc=vpc_detail.custom_vpc,env=account_details)
 # create rds
-# RdsDatabase3TierStack(app,"rds-stack",environment,vpc=vpc_detail.custom_vpc,env=account_details)
+RdsDatabase3TierStack(app,"rds-stack",environment,vpc=vpc_detail.custom_vpc,env=account_details)
 
 app.synth()

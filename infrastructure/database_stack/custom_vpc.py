@@ -8,7 +8,7 @@ class CustomVpcStack(Stack):
     def __init__(self, scope: Construct, id: str, ** kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        prod_configs = self.node.try_get_context('envs')['prod']
+        prod_configs = self.node.try_get_context('envs')['dev']
 
         self.custom_vpc = _ec2.Vpc(
             self,
