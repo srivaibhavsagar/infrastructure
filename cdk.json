@@ -23,6 +23,22 @@
         "region": "eu-west-2",
         "account": "184261415726",
         "lambda_name":"lambda_apigateway",
+        "rds":{
+          "database_name": "db",
+          "port": 3306,
+          "username": "admin",
+          "secret_name": "secret",
+          "stack_name": "rds-stack"
+        },
+        "ecs":{
+          "image": "srivaibhavsagar/fargate_rds",
+          "taskdefinitionname": "fargatetask",
+          "desired_count": 1,
+          "stack_name": "fargate-stack"
+        },
+        "vpc":{
+          "stack_name": "vpc-stack"
+        },
         "vpc_configs": {
           "vpc_cidr": "10.83.0.0/20",
           "cidr_mask": 24,
@@ -33,6 +49,19 @@
         "region": "eu-west-2",
         "account": "184261415726",
         "lambda_name":"api_lambda",
+        "rds":{
+          "database_name": "db",
+          "port": 3306,
+          "username": "admin",
+          "secret_name": "secret",
+          "stack_name": "rds-stack"
+        },
+        "ecs":{
+          "image": "srivaibhavsagar/fargate_rds",
+          "taskdefinitionname": "fargatetask",
+          "desired_count": 1,
+          "stack_name": "fargate-stack"
+        },
         "vpc_configs": {
           "vpc_cidr": "10.83.0.0/20",
           "cidr_mask": 24,

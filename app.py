@@ -22,6 +22,10 @@ regions = app.node.try_get_context("envs")[environment]["region"]
 account_number = app.node.try_get_context("envs")[environment]["account"]
 account_details = Environment(account=account_number, region=regions)
 
+rds_stack_name = app.node.try_get_context("envs")[environment]["rds"]["stack_name"]
+ecs_stack_name = app.node.try_get_context("envs")[environment]["ecs"]["stack_name"]
+vpc_stack_name = app.node.try_get_context("envs")[environment]["vpc"]["stack_name"]
+
 # Get Default VPC
 # default = StartingStack(app, "StartingStack",environment=environment,env=account_details)
 
@@ -29,11 +33,12 @@ account_details = Environment(account=account_number, region=regions)
 # CustomApiGatewayStack(app,"apiGateway-lambda-stack",environment=environment,env=account_details)
 
 # create vpc which should be used in rds
-vpc_detail = CustomVpcStack(app,"new-vpc",env=account_details)
+vpc_detail = CustomVpcStack(app,vpc_stack_name,env=account_details)
+
+# create rds
+rds_detail = RdsDatabase3TierStack(app,rds_stack_name,environment,vpc=vpc_detail.custom_vpc,env=account_details)
 
 # create fardate container
-ServerlessContainersArchitectureWithFargateStack(app,"fargate-stack",vpc=vpc_detail.custom_vpc,env=account_details)
-# create rds
-RdsDatabase3TierStack(app,"rds-stack",environment,vpc=vpc_detail.custom_vpc,env=account_details)
+ServerlessContainersArchitectureWithFargateStack(app,ecs_stack_name,environment,vpc=vpc_detail.custom_vpc,rds_secret= rds_detail.rds_secret,env=account_details)
 
 app.synth()
